@@ -10,10 +10,10 @@ public class Trail
     public int TimeInMinutes { get; set; }
     public string TimeFormatted => $"{TimeInMinutes / 60}h {TimeInMinutes % 60}m";
     public int Length { get; set; }
-    public IEnumerable<RouteInstructions> Route { get; set; } = Array.Empty<RouteInstructions>();
+    public IEnumerable<RouteInstruction> Route { get; set; } = Array.Empty<RouteInstruction>();
 }
 
-public class RouteInstructions
+public class RouteInstruction
 {
     public int Stage { get; set; }
     public string Description { get; set; } = string.Empty;
