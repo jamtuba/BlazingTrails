@@ -4,18 +4,6 @@
     color: red;
 }
 
-input.invalid,
-textarea.invaid,
-select.invalid {
-    border-color: red;
-}
-
-input.valid.modified,
-text.valid.modified,
-select.valid.modified {
-    border-color: green;
-}
-
 :root {
     --brand: #448922;
     --brand-hover: #5da030;
