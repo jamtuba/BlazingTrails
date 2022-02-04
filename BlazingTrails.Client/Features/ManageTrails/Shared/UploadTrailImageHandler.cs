@@ -1,4 +1,5 @@
 ﻿using BlazingTrails.Shared.Features.ManageTrails;
+using BlazingTrails.Shared.Features.ManageTrails.Shared;
 using MediatR;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -26,13 +27,13 @@ public class UploadTrailImageHandler : IRequestHandler<UploadTrailImageRequest, 
 
         if (response.IsSuccessStatusCode)
         {
-            var uploadSuccessful = await response.Content.ReadFromJsonAsync<bool>(cancellationToken: cancellationToken);
+            var filename = await response.Content.ReadAsStringAsync(cancellationToken: cancellationToken);
 
-            return new UploadTrailImageRequest.Response(uploadSuccessful);
+            return new UploadTrailImageRequest.Response(filename);
         }
         else
         {
-            return new UploadTrailImageRequest.Response(false);
+            return new UploadTrailImageRequest.Response("");
         }
     }
 }
