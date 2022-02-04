@@ -2,6 +2,7 @@
 using BlazingTrails.Api.Persistence;
 using BlazingTrails.Api.Persistence.Entities;
 using BlazingTrails.Shared.Features.ManageTrails;
+using BlazingTrails.Shared.Features.ManageTrails.AddTrail;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlazingTrails.Api.Features.ManageTrails;

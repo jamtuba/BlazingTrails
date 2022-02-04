@@ -1,5 +1,5 @@
 ﻿@page "/search/{SearchTerm}"
-@inject HttpClient _http
+@inject IMediator _mediator
 
 <PageTitle>Search Trails - Blazing Trails</PageTitle>
 
@@ -15,7 +15,7 @@
 
 <h3 class="mt-5 mb-4">Search results for "@SearchTerm"</h3>
 
-<SearchFilter SearchTerm="@SearchTerm" MaxLength="@MaxLength" MaxTime="@MaxTime"/>
+<SearchFilter SearchTerm="@SearchTerm" MaxLength="@MaxLength" MaxTime="@MaxTime"  />
 
 @if (_searchResults is null)
 {
@@ -52,10 +52,22 @@ else
     {
         try
         {
-            var allTrails = await _http.GetFromJsonAsync<IEnumerable<Trail>>("trails/trail-data.json");
-            _searchResults = allTrails!.Where(x => x.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase)
-                                               || x.Location.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase));
+            var response = await _mediator.Send(new GetTrailsRequest());
+            var allTrails = response.Trails.Select(x => new Trail
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Image = x.Image,
+                    Description = x.Description,
+                    Location = x.Location,
+                    Length = x.Length,
+                    TimeInMinutes = x.TimeInMinutes
+                });
+
+            _searchResults = allTrails.Where(x => x.Name.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase) || x.Location.Contains(SearchTerm, StringComparison.CurrentCultureIgnoreCase));
             _cachedSearchResults = _searchResults;
+
+            UpdateFilters();
         }
         catch (HttpRequestException ex)
         {
@@ -91,6 +103,6 @@ else
         }
     }
 
-     private void HandleTrailSelected(Trail trail)
-        => _selectedTrail = trail;
+    private void HandleTrailSelected(Trail trail)
+       => _selectedTrail = trail;
 }

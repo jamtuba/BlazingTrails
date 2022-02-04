@@ -1,3 +1,3 @@
 ﻿global using MediatR;
 global using FluentValidation;
-global using System.Net.Http.Json;
+global using BlazingTrails.Shared.Features.ManageTrails.Shared;
