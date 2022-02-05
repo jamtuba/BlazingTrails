@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingTrails.Client", "Bla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazingTrails.Shared", "BlazingTrails.Shared\BlazingTrails.Shared.csproj", "{CE3D008F-F184-463A-8DCA-1928B146175E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazingTrails.ComponentLibrary", "BlazingTrails.ComponentLibrary\BlazingTrails.ComponentLibrary.csproj", "{0086AE0A-083D-455F-9663-F19BF974A3BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CE3D008F-F184-463A-8DCA-1928B146175E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE3D008F-F184-463A-8DCA-1928B146175E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE3D008F-F184-463A-8DCA-1928B146175E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0086AE0A-083D-455F-9663-F19BF974A3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0086AE0A-083D-455F-9663-F19BF974A3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0086AE0A-083D-455F-9663-F19BF974A3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0086AE0A-083D-455F-9663-F19BF974A3BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
