@@ -26,16 +26,16 @@
         <table>
             <thead>
                 <tr>
-            @HeaderTemplate
+                    @HeaderTemplate
                 </tr>
             </thead>
             <tbody>
-        @foreach (var item in Items)
-        {
-                            <tr>
-                @RowTemplate(item)
-                            </tr>
-        }
+                @foreach (var item in Items)
+                {
+                    <tr>
+                        @RowTemplate(item)
+                    </tr>
+                }
             </tbody>
         </table>
     }
