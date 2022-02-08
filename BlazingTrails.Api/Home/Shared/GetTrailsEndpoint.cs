@@ -19,7 +19,7 @@ public class GetTrailsEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithResponse
     public override async Task<ActionResult<GetTrailsRequest.Response>> HandleAsync(int trailId, CancellationToken cancellationToken)
     {
         var trails = await _context.Trails
-            .Include(x => x.Route)
+            .Include(x => x.Waypoints)
             .ToListAsync(cancellationToken);
 
         var response = new GetTrailsRequest.Response(trails.Select(trail => new GetTrailsRequest.Trail(
