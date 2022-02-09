@@ -27,7 +27,16 @@ public class GetTrailEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithResponse<
             return BadRequest("Trail could not be found.");
         }
 
-        var response = new GetTrailRequest.Response(new GetTrailRequest.Trail(trail.Id, trail.Name, trail.Location, trail.Image, trail.TimeInMinutes, trail.Length, trail.Description, trail.Waypoints.Select(wp => new GetTrailRequest.Waypoint(wp.Latitude, wp.Longitude))));
+        var response = new GetTrailRequest.Response(new GetTrailRequest.Trail(
+            trail.Id, 
+            trail.Name, 
+            trail.Location, 
+            trail.Image, 
+            trail.TimeInMinutes, 
+            trail.Length, 
+            trail.Description, 
+            trail.Waypoints.Select(wp => new GetTrailRequest.Waypoint(wp.Latitude, wp.Longitude))
+            ));
 
         return Ok(response);
     }
