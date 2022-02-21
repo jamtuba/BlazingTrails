@@ -1,8 +1,10 @@
 using BlazingTrails.Api.Persistence;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using SixLabors.ImageSharp;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -16,6 +18,16 @@ options.UseSqlite(builder.Configuration.GetConnectionString("BlazingTrailsContex
 builder.Services.AddControllers()
     .AddFluentValidation(fv =>
     fv.RegisterValidatorsFromAssembly(Assembly.Load("BlazingTrails.Shared")));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = builder.Configuration["Auth0:Authority"];
+    options.Audience = builder.Configuration["Auth0:ApiIdentifier"];
+});
 
 var app = builder.Build();
 
@@ -36,6 +48,9 @@ app.UseStaticFiles(new StaticFileOptions()
 });
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.MapFallbackToFile("index.html");
