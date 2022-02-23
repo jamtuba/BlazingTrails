@@ -1,12 +1,10 @@
+global using Microsoft.AspNetCore.Authorization;
 using BlazingTrails.Api.Persistence;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using SixLabors.ImageSharp;
 using System.Reflection;
-using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -12,7 +12,7 @@ public class TrailDto
     public string? Image { get; set; }
     public ImageAction ImageAction { get; set; }
 
-    public List<WaypointDto> WayPoints { get; set; } = new();
+    public List<WaypointDto> Waypoints { get; set; } = new();
     public record WaypointDto(decimal Latitude, decimal Longitude);
 }
 
@@ -31,7 +31,7 @@ public class TrailValidator : AbstractValidator<TrailDto>
         RuleFor(x => x.Description).NotEmpty().WithMessage("Please enter a description");
         RuleFor(x => x.Location).NotEmpty().WithMessage("Please enter a location");
         RuleFor(x => x.Length).GreaterThan(0).WithMessage("Please enter a length");
-        RuleFor(x => x.WayPoints).NotEmpty().WithMessage("Please add a waypoint");
+        RuleFor(x => x.Waypoints).NotEmpty().WithMessage("Please add a waypoint");
         RuleFor(x => x.TimeInMinutes).GreaterThan(0).WithMessage("Please enter a time");
     }
 }

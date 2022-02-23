@@ -1,7 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using BlazingTrails.Api.Persistence;
 using BlazingTrails.Api.Persistence.Entities;
-using BlazingTrails.Shared.Features.ManageTrails;
 using BlazingTrails.Shared.Features.ManageTrails.AddTrail;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +27,7 @@ public class AddTrailEndpoint : BaseAsyncEndpoint
             Location = request.Trail.Location,
             TimeInMinutes = request.Trail.TimeInMinutes,
             Length = request.Trail.Length,
-            Waypoints = request.Trail.WayPoints.Select(wp=> new Waypoint
+            Waypoints = request.Trail.Waypoints.Select(wp=> new Waypoint
             {
                 Latitude = wp.Latitude,
                 Longitude = wp.Longitude

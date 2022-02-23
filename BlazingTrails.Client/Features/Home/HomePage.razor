@@ -18,9 +18,18 @@ else
 
     @if (_trails.Any())
     {
-        <div class="mb-4">
-            <p class="font-italic text-center">Do you have an awesome trail you´d like to share? <a href="add-trail">Add it here</a>.</p>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="mb-4">
+                    <p class="font-italic text-center">Do you have an awesome trail you´d like to share? <a href="add-trail">Add it here</a>.</p>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="mb-4">
+                    <p class="font-italic text-center">Do you have an awesome trail you´d like to share? Please <a href="authentication/login">log in or sign up</a>.</p>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
         <ViewSwitcher Items="_trails" Context="trail">
             <GridTemplate>
 
@@ -40,15 +49,20 @@ else
                 <td>@(trail.Length)km</td>
                 <td>@trail.TimeFormatted</td>
                 <td class="text-end">
-                    <button @onclick="@(() => HandleTrailSelected(trail))" title="View" class="btn btn-primary">
-                        <i class="bi bi-binoculars"></i>
-                    </button>
-                    <button @onclick="@(() => _navManager.NavigateTo($"/edit-trail/{trail.Id}"))" title="Edit" class="btn btn-outline-secondary">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                </td>
-            </RowTemplate>
-        </ViewSwitcher>
+                    <AuthorizeView>
+                        @if (trail.Owner.Equals(context.User.Identity?.Name, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            <button @onclick="@(() => _navManager.NavigateTo($"/edit-trail/{trail.Id}"))" title="Edit" class="btn btn-outline-secondary">
+                            <i class="bi bi-pencil"></i>
+                            </button>
+                        }
+            </AuthorizeView>
+            <button @onclick="@(() => HandleTrailSelected(trail))" title="View" class="btn btn-primary">
+                <i class="bi bi-binoculars"></i>
+            </button>
+        </td>
+    </RowTemplate>
+</ViewSwitcher>
     }
     else
     {
@@ -90,7 +104,8 @@ else
                     Location = x.Location,
                     Length = x.Length,
                     TimeInMinutes = x.TimeInMinutes,
-                    WayPoints = x.Waypoints.Select(wp=> new LatLong(wp.Latitude, wp.Longitude))?.ToList() ?? new List<LatLong>()
+                    Owner = x.Owner,
+                    WayPoints = x.Waypoints.Select(wp => new LatLong(wp.Latitude, wp.Longitude))?.ToList() ?? new List<LatLong>()
                 });
         }
         catch (HttpRequestException ex)

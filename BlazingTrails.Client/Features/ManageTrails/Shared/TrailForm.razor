@@ -62,8 +62,8 @@
     </FormSection>
 
     <FormSection Title="Route" HelpText="Route instructions are a guide for the trail. This helps hikers new to the trail stay on track.">
-        <InputRouteMap @bind-Value="_trail.WayPoints" />
-        <ValidationMessage For="@(() => _trail.WayPoints)" />
+        <InputRouteMap @bind-Value="_trail.Waypoints" />
+        <ValidationMessage For="@(() => _trail.Waypoints)" />
     </FormSection>
 
     <div class="mt-4 mb-5">
@@ -111,8 +111,8 @@
             _trail.Length = Trail.Length;
             _trail.TimeInMinutes = Trail.TimeInMinutes;
 
-            _trail.WayPoints.Clear();
-            _trail.WayPoints.AddRange(Trail.WayPoints.Select(wp => new TrailDto.WaypointDto(wp.Latitude, wp.Longitude)));
+            _trail.Waypoints.Clear();
+            _trail.Waypoints.AddRange(Trail.Waypoints.Select(wp => new TrailDto.WaypointDto(wp.Latitude, wp.Longitude)));
         }
     }
 

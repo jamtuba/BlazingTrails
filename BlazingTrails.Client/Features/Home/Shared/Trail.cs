@@ -11,6 +11,7 @@ public class Trail
     public int TimeInMinutes { get; set; }
     public string TimeFormatted => $"{TimeInMinutes / 60}h {TimeInMinutes % 60}m";
     public int Length { get; set; }
+    public string Owner { get; set; } = "";
     public List<LatLong> WayPoints { get; set; } = new();
 }
 

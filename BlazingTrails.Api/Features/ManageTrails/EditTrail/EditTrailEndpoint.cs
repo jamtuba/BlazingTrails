@@ -1,7 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using BlazingTrails.Api.Persistence;
 using BlazingTrails.Api.Persistence.Entities;
-using BlazingTrails.Shared.Features.ManageTrails;
 using BlazingTrails.Shared.Features.ManageTrails.EditTrail;
 using BlazingTrails.Shared.Features.ManageTrails.Shared;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +34,7 @@ public class EditTrailEndpoint : BaseAsyncEndpoint.WithRequest<EditTrailRequest>
         trail.Location = request.Trail.Location;
         trail.TimeInMinutes = request.Trail.TimeInMinutes;
         trail.Length = request.Trail.Length;
-        trail.Waypoints = request.Trail.WayPoints.Select(wp => new Waypoint
+        trail.Waypoints = request.Trail.Waypoints.Select(wp => new Waypoint
         {
             Latitude = wp.Latitude,
             Longitude = wp.Longitude
