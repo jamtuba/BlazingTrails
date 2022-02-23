@@ -1,4 +1,3 @@
-global using Microsoft.AspNetCore.Authorization;
 using BlazingTrails.Api.Persistence;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
