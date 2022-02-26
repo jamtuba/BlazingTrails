@@ -1,6 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using BlazingTrails.Api.Persistence;
 using BlazingTrails.Shared.Features.ManageTrails.EditTrail;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class GetTrailEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithResponse<
         _context = context;
     }
 
+    [Authorize]
     [HttpGet(GetTrailRequest.RouteTemplate)]
     public override async Task<ActionResult<GetTrailRequest.Response>> HandleAsync(int trailId, CancellationToken cancellationToken = default)
     {
@@ -27,6 +29,9 @@ public class GetTrailEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithResponse<
             return BadRequest("Trail could not be found.");
         }
 
+        if(!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase))
+            return Unauthorized();
+
         var response = new GetTrailRequest.Response(new GetTrailRequest.Trail(
             trail.Id, 
             trail.Name, 
@@ -34,7 +39,8 @@ public class GetTrailEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithResponse<
             trail.Image, 
             trail.TimeInMinutes, 
             trail.Length, 
-            trail.Description, 
+            trail.Description,
+            trail.Owner,
             trail.Waypoints.Select(wp => new GetTrailRequest.Waypoint(wp.Latitude, wp.Longitude))
             ));
 
