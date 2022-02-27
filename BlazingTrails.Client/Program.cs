@@ -1,4 +1,5 @@
 using BlazingTrails.Client;
+using BlazingTrails.Client.Features.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -25,6 +26,7 @@ builder.Services.AddOidcAuthentication(options =>
     options.ProviderOptions.ResponseType = "code";
     options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:ApiIdentifier"]);
     //options.UserOptions.NameClaim = ClaimTypes.GivenName; // Sætter name prop til givenname, default er email
-});
+})
+    .AddAccountClaimsPrincipalFactory<CustomUserFactory<RemoteUserAccount>>();
 
 await builder.Build().RunAsync();

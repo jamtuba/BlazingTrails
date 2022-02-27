@@ -29,7 +29,7 @@ public class UploadTrailImageEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithR
             return BadRequest("Trail does not exist.");
         }
 
-        if (!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase))
+        if (!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase) && !HttpContext.User.IsInRole("Administrator"))
             return Unauthorized();
 
         var file = Request.Form.Files[0];
@@ -59,6 +59,6 @@ public class UploadTrailImageEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithR
         trail.Image = filename;
         await _database.SaveChangesAsync(cancellationToken: cancellationToken);
 
-        return Ok(true);
+        return Ok(trail.Image);
     }
 }

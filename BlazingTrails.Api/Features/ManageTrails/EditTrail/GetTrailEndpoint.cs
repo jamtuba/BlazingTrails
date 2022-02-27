@@ -29,7 +29,7 @@ public class GetTrailEndpoint : BaseAsyncEndpoint.WithRequest<int>.WithResponse<
             return BadRequest("Trail could not be found.");
         }
 
-        if(!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase))
+        if (!trail.Owner.Equals(HttpContext.User.Identity!.Name, StringComparison.CurrentCultureIgnoreCase) && !HttpContext.User.IsInRole("Administrator"))
             return Unauthorized();
 
         var response = new GetTrailRequest.Response(new GetTrailRequest.Trail(
