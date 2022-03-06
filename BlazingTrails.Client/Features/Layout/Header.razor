@@ -1,9 +1,28 @@
 ﻿@using BlazingTrails.Client.Features.Auth
 
+@inject AppState _appState
+
+@implements IDisposable
+
 <nav class="navbar mb-5 shadow">
     <a class="navbar-brand" href="/">
         <img src="/images/logo.png" />
     </a>
 </nav>
 
-<LoginStatus />
+<div class="container d-flex justify-content-between">
+    <p>
+        You have <span class="font-weight-bold">
+            @_appState.FavoriteTrailsState.FavoriteTrails.Count
+        </span> <a href="/favorite-trails">favorite trails</a>
+    </p>
+    <LoginStatus />
+</div>
+
+
+@code {
+    protected override void OnInitialized() => _appState.FavoriteTrailsState.OnChange += StateHasChanged;
+
+    void IDisposable.Dispose() => _appState.FavoriteTrailsState.OnChange -= StateHasChanged;
+
+}
